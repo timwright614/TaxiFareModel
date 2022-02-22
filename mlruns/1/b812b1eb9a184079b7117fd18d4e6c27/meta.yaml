@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/timothywright/code/timwright614/TaxiFareModel/mlruns/1/b812b1eb9a184079b7117fd18d4e6c27/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: b812b1eb9a184079b7117fd18d4e6c27
+run_uuid: b812b1eb9a184079b7117fd18d4e6c27
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1645538993783
+status: 1
+tags: []
+user_id: unknown
