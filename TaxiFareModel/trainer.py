@@ -14,13 +14,24 @@ import mlflow
 from mlflow.tracking import MlflowClient
 from datetime import datetime
 import joblib
-
-
+from google.cloud import storage
+from TaxiFareModel.params import BUCKET_NAME, STORAGE_LOCATION
 
 now = datetime.now()
 
 MLFLOW_URI = "https://mlflow.lewagon.co/"
 EXPERIMENT_NAME = f'GB_LON_timwright614_{now}'
+
+def upload_model_to_gcp():
+
+    client = storage.Client()
+
+    bucket = client.bucket(BUCKET_NAME)
+
+    blob = bucket.blob(STORAGE_LOCATION)
+
+    blob.upload_from_filename('model.joblib')
+
 
 class Trainer():
     def __init__(self, X, y):
@@ -67,9 +78,23 @@ class Trainer():
         print(rmse)
         return rmse
 
+
     def save_model(self):
         """ Save the trained model into a model.joblib file """
         joblib.dump(self.pipeline, 'model.joblib')
+
+        """method that saves the model into a .joblib file and uploads it on Google Storage /models folder
+        HINTS : use joblib library and google-cloud-storage"""
+
+        # saving the trained model to disk is mandatory to then beeing able to upload it to storage
+        # Implement here
+        joblib.dump(self.pipeline, 'model.joblib')
+        print("saved model.joblib locally")
+
+        # Implement here
+        upload_model_to_gcp()
+        print(f"uploaded model.joblib to gcp cloud storage under \n => {STORAGE_LOCATION}")
+
 
     @memoized_property
     def mlflow_client(self):
@@ -127,10 +152,10 @@ if __name__ == "__main__":
 
         #logs
 
-        trainer.mlflow_log_param('estimator', model)
+        #trainer.mlflow_log_param('estimator', model)
 
-        trainer.mlflow_log_metric('rsme', rsme)
+        #trainer.mlflow_log_metric('rsme', rsme)
 
-        experiment_id = trainer.mlflow_experiment_id
+        #experiment_id = trainer.mlflow_experiment_id
 
-    print(f"experiment URL: https://mlflow.lewagon.co/#/experiments/{experiment_id}")
+    #print(f"experiment URL: https://mlflow.lewagon.co/#/experiments/{experiment_id}")

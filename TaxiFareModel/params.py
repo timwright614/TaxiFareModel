@@ -1,0 +1,5 @@
+BUCKET_NAME = 'wagon-data-805-wright'
+STORAGE_LOCATION = 'models/simpletaxifare/model.joblib'
+BUCKET_TRAIN_DATA_PATH = 'data/test.csv'
+PATH_TO_GCP_MODEL = 'gs://wagon-data-805-wright/models/simpletaxifare/model.joblib'
+TESTDATAPATH = 'gs://wagon-data-805-wright/data/test.csv'
